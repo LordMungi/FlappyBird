@@ -67,7 +67,7 @@ namespace obstcl {
 		vec::Vector2 playerSpacePos = { 0.0f, 0.0f };
 		vec::Vector2 playerSpaceSize = { 0.0f, 0.0f };
 
-		playerSpacePos.y = mth::GetRandomf(0.3f,0.6f);
+		playerSpacePos.y = mth::GetRandomf(0.2f,0.8f);
 		playerSpaceSize.y = 0.25f;
 
 		fullObstacle.obstacles[0].pos.y = (playerSpacePos.y - playerSpaceSize.y / 2.0f) / 2.0f;

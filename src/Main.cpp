@@ -4,11 +4,14 @@
 
 int main() {
 
+	bool isPaused = false;
+
+	ctrl::Key pauseKey = ctrl::Key::ESCAPE;
+
 	enum class GameState {
 		MAIN_MENU,
 		GAMEPLAY,
-		CREDITS,
-		PAUSED
+		CREDITS
 	};
 
 	bool isRunning = true;
@@ -41,6 +44,7 @@ int main() {
 	obstcl::Init(obstacles);
 
 	// Pause
+	btn::Button retryButton;
 	btn::Button returnButton;
 	btn::Button exitPauseButton;
 
@@ -70,31 +74,31 @@ int main() {
 
 	// Inicializacion
 
-	vec::Vector2 buttonSize = { 0.3f, 0.1f };
+	btn::Button templateButton;
+	templateButton.size = { 0.275f, 0.075f };
+	templateButton.textData.fontSize = 0.075f;
+	templateButton.useSprite = false;
+
 
 	//Menu
+	playButton = templateButton;
 	playButton.pos = { 0.5f, 0.6f };
-	playButton.size = buttonSize;
-	playButton.useSprite = true;
 	playButton.textData.text = "Play";
 	btn::Init(playButton);
 
+	creditsButton = templateButton;
 	creditsButton.pos = { 0.5f, 0.5f };
-	creditsButton.size = buttonSize;
-	creditsButton.useSprite = true;
 	creditsButton.textData.text = "Credits";
 	btn::Init(creditsButton);
 
+	exitButton = templateButton;
 	exitButton.pos = { 0.5f, 0.4f };
-	exitButton.size = buttonSize;
-	exitButton.useSprite = true;
 	exitButton.textData.text = "Exit";
 	btn::Init(exitButton);
 
 	//Credits
+	backButton = templateButton;
 	backButton.pos = { 0.5f, 0.3f };
-	backButton.size = buttonSize;
-	backButton.useSprite = true;
 	backButton.textData.text = "Back";
 	btn::Init(backButton);
 
@@ -102,9 +106,8 @@ int main() {
 	creditsTextData.text = "Made by Borja Lia";
 
 	//Gameplay
+	pauseButton = templateButton;
 	pauseButton.pos = { 0.5f, 0.9f };
-	pauseButton.size = buttonSize;
-	pauseButton.useSprite = true;
 	pauseButton.textData.text = "Pause";
 	btn::Init(pauseButton);
 
@@ -122,21 +125,23 @@ int main() {
 	//mouseParticleActivator.speed = { 0.1f, 0.3f };
 	//prtcl::Init(mouseParticleActivator, mouseParticles);
 
+	retryButton = templateButton;
+	retryButton.pos = { 0.5f, 0.7f };
+	retryButton.textData.text = "Retry";
+	btn::Init(retryButton);
 
+	returnButton = templateButton;
 	returnButton.pos = { 0.5f, 0.6f };
-	returnButton.size = buttonSize;
-	returnButton.useSprite = true;
 	returnButton.textData.text = "Return";
 	btn::Init(returnButton);
 
+	exitPauseButton = templateButton;
 	exitPauseButton.pos = { 0.5f, 0.5f };
-	exitPauseButton.size = buttonSize;
-	exitPauseButton.useSprite = true;
 	exitPauseButton.textData.text = "Exit to Menu";
 	btn::Init(exitPauseButton);
 
 	versionTextData.fontSize = 0.05f;
-	versionTextData.text = "v0.1";
+	versionTextData.text = "v0.2";
 	versionTextData.color = SEMITRANSPARENT_B;
 
 	while (isRunning) {
@@ -156,9 +161,10 @@ int main() {
 
 			if (playButton.signal) {
 				currentState = GameState::GAMEPLAY;
+				isPaused = false;
 				gameTimer = 0.0f;
 				bll::Reset(ball);
-				obstcl::Reset(obstacles[0]);
+				obstcl::Reset(obstacles);
 			}
 			if (creditsButton.signal) {
 				currentState = GameState::CREDITS;
@@ -170,11 +176,35 @@ int main() {
 
 		case GameState::GAMEPLAY:
 
+			if (isPaused) {
+
+				btn::UpdateInput(retryButton);
+				btn::UpdateInput(returnButton);
+				btn::UpdateInput(exitPauseButton);
+
+				if (retryButton.signal){
+					isPaused = false;
+					gameTimer = 0.0f;
+					bll::Reset(ball);
+					obstcl::Reset(obstacles);
+				}
+
+				if (returnButton.signal || ctrl::IsKeyPressed(pauseKey)) {
+					isPaused = false;
+				}
+
+				if (exitPauseButton.signal) {
+					currentState = GameState::MAIN_MENU;
+				}
+				break;
+			}
+
 			gameTimer += rend::deltaTime;
 
 			btn::UpdateInput(pauseButton);
-			if (pauseButton.signal) {
-				currentState = GameState::PAUSED;
+
+			if (pauseButton.signal || ctrl::IsKeyPressed(pauseKey)) {
+				isPaused = true;
 			}
 
 			bll::UpdateInput(ball);
@@ -202,26 +232,12 @@ int main() {
 				currentState = GameState::MAIN_MENU;
 			}
 			break;
-
-		case GameState::PAUSED:
-
-			btn::UpdateInput(returnButton);
-			btn::UpdateInput(exitPauseButton);
-
-			if (returnButton.signal) {
-				currentState = GameState::GAMEPLAY;
-			}
-			if (exitPauseButton.signal) {
-				currentState = GameState::MAIN_MENU;
-			}
-			break;
 		}
-
 		bLib::UpdateEnd();
 
 		//Draw
 		drw::Begin();
-		drw::Clear(DARKBLUE_B);
+		drw::Clear(DARKGREY_B);
 
 		switch (currentState)
 		{
@@ -230,6 +246,7 @@ int main() {
 			btn::Draw(playButton);
 			btn::Draw(creditsButton);
 			btn::Draw(exitButton);
+			drw::Text(versionTextData.text.c_str(), versionTextData, { 0.97f, 0.045f }, versionTextData.fontSize, { 0,0 }, WHITE_B);
 			break;
 
 		case GameState::GAMEPLAY:
@@ -242,28 +259,31 @@ int main() {
 
 			btn::Draw(pauseButton);
 
-			scoreTextData.text = std::to_string(gameTimer);
 			//drw::Text(scoreTextData.text.c_str(),scoreTextData, { 0.5f, 0.5f }, scoreTextData.fontSize, { 0,0 }, WHITE_B);
+			
+			if (isPaused) {
+				drw::Rectangle(vec::Vector4(0.0f, 0.0f, 1.0f, 1.0f), SEMITRANSPARENT_B);
+				btn::Draw(retryButton);
+				btn::Draw(returnButton);
+				btn::Draw(exitPauseButton);
+
+				scoreTextData.text = std::to_string(gameTimer);
+			}
+			else {
+				scoreTextData.text = std::to_string(gameTimer);
+			}
+			
 			break;
 
 		case GameState::CREDITS:
 
 			btn::Draw(backButton);
 			drw::Text(creditsTextData.text.c_str(), creditsTextData, { 0.5f, 0.6f }, creditsTextData.fontSize, { 0,0 }, WHITE_B);
-			break;
-
-		case GameState::PAUSED:
-
-			btn::Draw(returnButton);
-			btn::Draw(exitPauseButton);
-
-			scoreTextData.text = std::to_string(gameTimer);
-			//drw::Text(scoreTextData.text.c_str(), scoreTextData, { 0.5f, 0.3f }, scoreTextData.fontSize, { 0,0 }, WHITE_B);
+			drw::Text(versionTextData.text.c_str(), versionTextData, { 0.97f, 0.045f }, versionTextData.fontSize, { 0,0 }, WHITE_B);
 			break;
 		}
 
 
-		drw::Text(versionTextData.text.c_str(), versionTextData, { 0.97f, 0.045f }, versionTextData.fontSize, { 0,0 }, WHITE_B);
 
 		drw::End();
 
