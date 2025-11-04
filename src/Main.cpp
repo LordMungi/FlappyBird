@@ -78,6 +78,9 @@ int main() {
 	templateButton.size = { 0.275f, 0.075f };
 	templateButton.textData.fontSize = 0.075f;
 	templateButton.useSprite = false;
+	templateButton.activeColor = SEMITRANSPARENT_B;
+	templateButton.mainColor = SEMITRANSPARENT_B;
+	templateButton.hoveredColor = SEMITRANSPARENT_B;
 
 
 	//Menu
