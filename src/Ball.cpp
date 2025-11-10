@@ -2,7 +2,7 @@
 #include "Ball.h"
 
 //TEMPORALMENTE AQUI
-float gravity = 3.0f;
+float gravity = 1.2f;
 
 namespace bll {
 
