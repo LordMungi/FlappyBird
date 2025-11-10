@@ -34,18 +34,10 @@ void MainLoop()
 
 	drw::SpriteData backgroundFar;
 	backgroundFar.file = "res/sprites/parallax/back.png";
-<<<<<<< HEAD
-	backgroundFar.size = { 1.0f,1.0f };
-	backgroundFar.offset = { 0.0f,0.0f };
-	float farDistance = 1.0f;
-	vec::Vector2 backgroundFarPos = { 0.5f, 0.5f };
-	vec::Vector2 backgroundFarPos2 = { backgroundFarPos.x + backgroundSize.x, backgroundFarPos.y };
-=======
 	backgroundFar.size = { 2.0f,1.0f };
 	backgroundFar.offset = {0.0f,0.0f};
 	float farSpeed = 0.2f;
 	vec::Vector2 farOffset2 = { backgroundFar.size.x, 0.0f };
->>>>>>> parallax
 
 	backgroundFar.id = drw::InitSpriteData(backgroundFar);
 
@@ -53,14 +45,8 @@ void MainLoop()
 	backgroundMid.file = "res/sprites/parallax/mid.png";
 	backgroundMid.size = { 2.0f,1.0f };
 	backgroundMid.offset = {0.0f,0.0f};
-<<<<<<< HEAD
-	float midDistance = 0.75f;
-	vec::Vector2 backgroundMidPos = { 0.5f, 0.5f };
-	vec::Vector2 backgroundMidPos2 = { backgroundMidPos.x + backgroundSize.x, backgroundMidPos.y };
-=======
 	float midSpeed = 0.4f;
 	vec::Vector2 midOffset2 = { backgroundMid.size.x, 0.0f };
->>>>>>> parallax
 
 	backgroundMid.id = drw::InitSpriteData(backgroundMid);
 
@@ -68,14 +54,8 @@ void MainLoop()
 	backgroundNear.file = "res/sprites/parallax/front.png";
 	backgroundNear.size = { 2.0f,1.0f };
 	backgroundNear.offset = {0.0f,0.0f};
-<<<<<<< HEAD
-	float nearDistance = 0.5f;
-	vec::Vector2 backgroundNearPos = { 0.5f, 0.5f };
-	vec::Vector2 backgroundNearPos2 = { backgroundNearPos.x + backgroundSize.x, backgroundNearPos.y };
-=======
 	float nearSpeed = 0.6f;
 	vec::Vector2 nearOffset2 = { backgroundNear.size.x, 0.0f };
->>>>>>> parallax
 
 	backgroundNear.id = drw::InitSpriteData(backgroundNear);
 
@@ -222,24 +202,7 @@ void MainLoop()
 
 		case GameState::GAMEPLAY:
 
-<<<<<<< HEAD
-			backgroundFarPos.x -= rend::deltaTime * farDistance;
-			backgroundFarPos2.x -= rend::deltaTime * farDistance;
-			backgroundMidPos.x -= rend::deltaTime * midDistance;
-			backgroundNearPos.x -= rend::deltaTime * nearDistance;
 
-			if (backgroundFarPos.x + backgroundSize.x / 2.0f <= 0.0f) {
-				backgroundFarPos.x = 1.0f + backgroundSize.x / 2.0f;
-			}
-			if (backgroundFarPos2.x + backgroundSize.x / 2.0f <= 0.0f) {
-				backgroundFarPos2.x = 1.0f + backgroundSize.x / 2.0f;
-			}
-			if (backgroundMidPos.x + backgroundMid.size.x / 2.0f <= 0.0f) {
-				backgroundMidPos.x = 1.0f + backgroundMid.size.x / 2.0f;
-			}
-			if (backgroundNearPos.x + backgroundNear.size.x / 2.0f <= 0.0f) {
-				backgroundNearPos.x = 1.0f + backgroundNear.size.x / 2.0f;
-=======
 			backgroundFar.offset.x -= rend::deltaTime * farSpeed;
 			farOffset2.x -= rend::deltaTime * farSpeed;
 			backgroundMid.offset.x -= rend::deltaTime * midSpeed;
@@ -264,7 +227,6 @@ void MainLoop()
 			}
 			if (nearOffset2.x <= -backgroundNear.size.x) {
 				nearOffset2.x = backgroundNear.size.x;
->>>>>>> parallax
 			}
 
 			if (isPaused) {
@@ -342,19 +304,12 @@ void MainLoop()
 
 		case GameState::GAMEPLAY:
 
-<<<<<<< HEAD
-			drw::Sprite(drw::spriteDataList[backgroundFar.id], backgroundFarPos, backgroundSize, backgroundFar.offset);
-			//drw::Sprite(drw::spriteDataList[backgroundFar.id], backgroundFarPos2, backgroundSize, backgroundFar.offset);
-			drw::Sprite(drw::spriteDataList[backgroundMid.id], backgroundMidPos, backgroundMid.size, backgroundMid.offset);
-			drw::Sprite(drw::spriteDataList[backgroundNear.id], backgroundNearPos, backgroundNear.size, backgroundNear.offset);
-=======
 			drw::Sprite(drw::spriteDataList[backgroundFar.id], { 0.5f,0.5f }, { 2.0f,1.0f }, backgroundFar.offset);
 			drw::Sprite(drw::spriteDataList[backgroundFar.id], { 0.5f,0.5f }, { 2.0f,1.0f }, farOffset2);
 			drw::Sprite(drw::spriteDataList[backgroundMid.id], { 0.5f,0.5f }, { 2.0f,1.0f }, backgroundMid.offset);
 			drw::Sprite(drw::spriteDataList[backgroundMid.id], { 0.5f,0.5f }, { 2.0f,1.0f }, midOffset2);
 			drw::Sprite(drw::spriteDataList[backgroundNear.id], { 0.5f,0.5f }, { 2.0f,1.0f }, backgroundNear.offset);
 			drw::Sprite(drw::spriteDataList[backgroundNear.id], { 0.5f,0.5f }, { 2.0f,1.0f }, nearOffset2);
->>>>>>> parallax
 
 			//prtcl::Draw(mouseParticles);
 
