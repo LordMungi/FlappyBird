@@ -60,8 +60,12 @@ void MainLoop()
 	backgroundNear.id = drw::InitSpriteData(backgroundNear);
 
 
-	bll::Ball ball;
-	bll::Init(ball);
+	bll::Ball player1;
+	bll::Init(player1, 1);
+
+
+	bll::Ball player2;
+	bll::Init(player2, 2);
 
 	obstcl::FullObstacle obstacles[obstcl::maxObstacles];
 	obstcl::Init(obstacles);
@@ -189,7 +193,7 @@ void MainLoop()
 				currentState = GameState::GAMEPLAY;
 				isPaused = false;
 				gameTimer = 0.0f;
-				bll::Reset(ball);
+				bll::Reset(player1);
 				obstcl::Reset(obstacles);
 			}
 			if (creditsButton.signal) {
@@ -238,7 +242,8 @@ void MainLoop()
 				if (retryButton.signal) {
 					isPaused = false;
 					gameTimer = 0.0f;
-					bll::Reset(ball);
+					bll::Reset(player1);
+					bll::Reset(player2);
 					obstcl::Reset(obstacles);
 				}
 
@@ -260,16 +265,21 @@ void MainLoop()
 				isPaused = true;
 			}
 
-			bll::UpdateInput(ball);
+			bll::UpdateInput(player1);
+			bll::UpdateInput(player2);
 
 			obstcl::Update(obstacles);
 
-			bll::Update(ball);
+			bll::Update(player1);
+			bll::Update(player2);
 
 			for (int o = 0; o < obstcl::maxObstacles; o++)
 			{
-				if (obstcl::mngr::Collide(obstacles[o].obstacles, ball)) {
-					bll::Die(ball);
+				if (obstcl::mngr::Collide(obstacles[o].obstacles, player1)) {
+					bll::Die(player1);
+				}
+				if (obstcl::mngr::Collide(obstacles[o].obstacles, player2)) {
+					bll::Die(player1);
 				}
 			}
 
@@ -315,7 +325,8 @@ void MainLoop()
 
 			obstcl::Draw(obstacles);
 
-			bll::Draw(ball);
+			bll::Draw(player1);
+			bll::Draw(player2);
 
 			btn::Draw(pauseButton);
 

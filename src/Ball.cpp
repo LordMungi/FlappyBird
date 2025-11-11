@@ -6,9 +6,22 @@ float gravity = 3.0f;
 
 namespace bll {
 
-	void Init(Ball& ball)
+	void Init(Ball& ball, int player)
 	{
 		ball = Ball();
+
+		if (player == 1)
+		{
+			ball.jumpKey = ctrl::Key::W;
+			ball.jumpButton = ctrl::ButtonMouse::LMB;
+		} 
+		else
+		{
+			ball.jumpKey = ctrl::Key::UP;
+			ball.jumpButton = ctrl::ButtonMouse::RMB;
+
+		}
+
 		Reset(ball);
 	}
 
@@ -25,16 +38,7 @@ namespace bll {
 			return;
 		}
 
-		if (ctrl::IsKeyPressed(ball.upKey)) {
-			//ball.vel.y = ball.moveForce;
-			ball.vel.y = ball.jumpForce;
-		}
-
-		if (ctrl::IsKeyPressed(ball.downKey)) {
-			//ball.vel.y = -ball.moveForce;
-		}
-
-		if (ctrl::IsMousePressed(ball.jumpButton)) {
+		if (ctrl::IsKeyPressed(ball.jumpKey) || ctrl::IsMousePressed(ball.jumpButton)) {
 			ball.vel.y = ball.jumpForce;
 		}
 	}

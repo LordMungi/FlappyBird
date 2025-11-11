@@ -23,13 +23,12 @@ namespace bll {
 
 		bColor color = MAROON_B;
 
-		ctrl::ButtonMouse jumpButton = ctrl::ButtonMouse::LMB;
 
-		ctrl::Key upKey = ctrl::Key::UP;
-		ctrl::Key downKey = ctrl::Key::DOWN;
+		ctrl::Key jumpKey;
+		ctrl::ButtonMouse jumpButton;
 	};
 
-	void Init(Ball& ball);
+	void Init(Ball& ball, int player);
 
 	void Reset(Ball& ball);
 
