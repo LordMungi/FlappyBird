@@ -1,5 +1,5 @@
 
-# Flappy Bird v0.1
+# Flappy Bird v0.4
 
 A Flappy bird game made using c++, implementing sigil and raylib
 
@@ -7,6 +7,7 @@ A Flappy bird game made using c++, implementing sigil and raylib
 ## Authors
 
 - [@BorjaLia](https://www.github.com/BorjaLia)
+- [@LordMungi](https://github.com/LordMungi)
 
 ## Library
 
