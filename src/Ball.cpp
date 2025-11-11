@@ -27,15 +27,16 @@ namespace bll {
 
 	void Reset(Ball& ball)
 	{
-		ball.pos = Ball().pos;
 		ball.vel = Ball().vel;
 		ball.crashPoint = Ball().crashPoint;
 		switch (ball.player)
 		{
 		case 1:
+			ball.pos = { 0.1f, 0.5f };
 			ball.color = MAROON_B;
 			break;
 		case 2:
+			ball.pos = { 0.2f, 0.5f };
 			ball.color = BLUEBERRY_B;
 			break;
 		}
