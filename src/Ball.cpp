@@ -8,18 +8,18 @@ namespace bll {
 
 	void Init(Ball& ball, int player)
 	{
-		ball = Ball();
+		ball.player = player;
 
-		if (player == 1)
+		switch (ball.player)
 		{
+		case 1:
 			ball.jumpKey = ctrl::Key::W;
 			ball.jumpButton = ctrl::ButtonMouse::LMB;
-		} 
-		else
-		{
+			break;
+		case 2:
 			ball.jumpKey = ctrl::Key::UP;
 			ball.jumpButton = ctrl::ButtonMouse::RMB;
-
+			break;
 		}
 
 		Reset(ball);
@@ -27,7 +27,19 @@ namespace bll {
 
 	void Reset(Ball& ball)
 	{
-		ball = Ball();
+		ball.pos = Ball().pos;
+		ball.vel = Ball().vel;
+		ball.crashPoint = Ball().crashPoint;
+		switch (ball.player)
+		{
+		case 1:
+			ball.color = MAROON_B;
+			break;
+		case 2:
+			ball.color = BLUEBERRY_B;
+			break;
+		}
+
 		ball.isActive = true;
 		ball.isAlive = true;
 	}

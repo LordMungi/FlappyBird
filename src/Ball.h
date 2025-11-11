@@ -6,6 +6,8 @@ namespace bll {
 
 	struct Ball {
 
+		int player;
+
 		bool isActive = false;
 
 		bool isAlive = false;
