@@ -279,7 +279,7 @@ void MainLoop()
 					bll::Die(player1);
 				}
 				if (obstcl::mngr::Collide(obstacles[o].obstacles, player2)) {
-					bll::Die(player1);
+					bll::Die(player2);
 				}
 			}
 
