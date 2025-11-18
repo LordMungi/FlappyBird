@@ -257,31 +257,31 @@ void MainLoop()
 			}
 			else
 			{
+				if (backgroundFar.offset.x <= -backgroundFar.size.x) {
+					backgroundFar.offset.x = farOffset2.x + backgroundFar.size.x;
+				}
+				if (farOffset2.x <= -backgroundFar.size.x) {
+					farOffset2.x = backgroundFar.offset.x + backgroundFar.size.x;
+				}
+				if (backgroundMid.offset.x <= -backgroundMid.size.x) {
+					backgroundMid.offset.x = midOffset2.x + backgroundMid.size.x;
+				}
+				if (midOffset2.x <= -backgroundMid.size.x) {
+					midOffset2.x = backgroundMid.offset.x + backgroundMid.size.x;
+				}
+				if (backgroundNear.offset.x <= -backgroundNear.size.x) {
+					backgroundNear.offset.x = nearOffset2.x + backgroundNear.size.x;
+				}
+				if (nearOffset2.x <= -backgroundNear.size.x) {
+					nearOffset2.x = backgroundNear.offset.x + backgroundNear.size.x;
+				}
+
 				backgroundFar.offset.x -= rend::deltaTime * farSpeed;
 				farOffset2.x -= rend::deltaTime * farSpeed;
 				backgroundMid.offset.x -= rend::deltaTime * midSpeed;
 				midOffset2.x -= rend::deltaTime * midSpeed;
 				backgroundNear.offset.x -= rend::deltaTime * nearSpeed;
 				nearOffset2.x -= rend::deltaTime * nearSpeed;
-
-				if (backgroundFar.offset.x <= -backgroundFar.size.x) {
-					backgroundFar.offset.x = backgroundFar.size.x;
-				}
-				if (farOffset2.x <= -backgroundFar.size.x) {
-					farOffset2.x = backgroundFar.size.x;
-				}
-				if (backgroundMid.offset.x <= -backgroundMid.size.x) {
-					backgroundMid.offset.x = backgroundMid.size.x;
-				}
-				if (midOffset2.x <= -backgroundMid.size.x) {
-					midOffset2.x = backgroundMid.size.x;
-				}
-				if (backgroundNear.offset.x <= -backgroundNear.size.x) {
-					backgroundNear.offset.x = backgroundNear.size.x;
-				}
-				if (nearOffset2.x <= -backgroundNear.size.x) {
-					nearOffset2.x = backgroundNear.size.x;
-				}
 			}
 
 			gameTimer += rend::deltaTime;
