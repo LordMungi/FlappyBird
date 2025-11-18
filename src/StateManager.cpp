@@ -294,12 +294,15 @@ void MainLoop()
 
 
 				for (int i = 0; i < playersInGame; i++)
+				{
 					bll::UpdateInput(players[i]);
+					bll::Update(players[i]);
+					if (!players[i].isAlive)
+						players[i].pos += obstacles[0].vel * rend::deltaTime;
+				}
 
 				obstcl::Update(obstacles);
 
-				for (int i = 0; i < playersInGame; i++)
-					bll::Update(players[i]);
 
 			}
 			for (int o = 0; o < obstcl::maxObstacles; o++)

@@ -84,7 +84,7 @@ namespace bll {
 		drw::Circle(ball.pos, ball.size, ball.color);
 		if (!ball.isAlive) {
 
-			drw::Circle(ball.crashPoint, ball.size * (1.0f/3.0f), MAGENTA_B);
+			//drw::Circle(ball.crashPoint, ball.size * (1.0f/3.0f), MAGENTA_B);
 		}
 	}
 	void Die(Ball& ball)
