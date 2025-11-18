@@ -191,6 +191,13 @@ void MainLoop()
 	while (isRunning) {
 
 		isRunning = !rend::ShouldExit();
+		bool isActive = false;
+		for (int i = 0; i < playersInGame; i++)
+		{
+			if (players[i].isAlive)
+				isActive = true;
+		}
+
 
 		//Update
 		bLib::UpdateStart();
@@ -255,7 +262,7 @@ void MainLoop()
 				}
 				break;
 			}
-			else
+			else if (isActive)
 			{
 				if (backgroundFar.offset.x <= -backgroundFar.size.x) {
 					backgroundFar.offset.x = farOffset2.x + backgroundFar.size.x;
@@ -282,24 +289,19 @@ void MainLoop()
 				midOffset2.x -= rend::deltaTime * midSpeed;
 				backgroundNear.offset.x -= rend::deltaTime * nearSpeed;
 				nearOffset2.x -= rend::deltaTime * nearSpeed;
+
+				gameTimer += rend::deltaTime;
+
+
+				for (int i = 0; i < playersInGame; i++)
+					bll::UpdateInput(players[i]);
+
+				obstcl::Update(obstacles);
+
+				for (int i = 0; i < playersInGame; i++)
+					bll::Update(players[i]);
+
 			}
-
-			gameTimer += rend::deltaTime;
-
-			btn::UpdateInput(pauseButton);
-
-			if (pauseButton.signal || ctrl::IsKeyPressed(pauseKey)) {
-				isPaused = true;
-			}
-
-			for (int i = 0; i < playersInGame; i++)
-				bll::UpdateInput(players[i]);
-
-			obstcl::Update(obstacles);
-
-			for (int i = 0; i < playersInGame; i++)
-				bll::Update(players[i]);
-
 			for (int o = 0; o < obstcl::maxObstacles; o++)
 			{
 				for (int i = 0; i < playersInGame; i++)
@@ -307,6 +309,11 @@ void MainLoop()
 					if (obstcl::mngr::Collide(obstacles[o].obstacles, players[i])) 
 						bll::Die(players[i]);
 				}
+			}
+
+			btn::UpdateInput(pauseButton);
+			if (pauseButton.signal || ctrl::IsKeyPressed(pauseKey)) {
+				isPaused = true;
 			}
 
 			//mouseParticleActivator.pos = rend::mousePos;
