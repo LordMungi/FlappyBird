@@ -225,7 +225,9 @@ namespace game
 		if (!isStarted)
 		{
 			labelData.text = "SPACE to START";
-			drw::Text(labelData.text.c_str(), { 0.5f, 0.5f }, { 0.1f }, { 0,0 }, BLACK_B);
+			drw::Text(labelData.text.c_str(), { 0.5f, 0.15f }, { 0.1f }, { 0,0 }, BLACK_B);
+			labelData.text = "Jump to avoid the obstacles!";
+			drw::Text(labelData.text.c_str(), { 0.5f, 0.08f }, { 0.05f }, { 0,0 }, BLACK_B);
 
 			labelData.text = "P1";
 			drw::Text(labelData.text.c_str(), { 0.1f, 0.6f }, { 0.05f }, { 0,0 }, BLACK_B);
