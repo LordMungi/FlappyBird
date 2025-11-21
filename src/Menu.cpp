@@ -12,8 +12,13 @@ namespace menu
 	btn::Button creditsButton;
 	btn::Button exitButton;
 
+	snd::AudioData bgm;
+
 	void init()
 	{
+		bgm.file = "res/audio/bgm2.wav";
+		bgm.id = snd::InitAudioData(bgm);
+
 		playButton = templates::button;
 		playButton.pos = { 0.5f, 0.6f };
 		playButton.textData.text = "1P";
@@ -35,6 +40,7 @@ namespace menu
 		btn::Init(exitButton);
 
 		nextState = GameState::MAIN_MENU;
+		snd::Play(bgm.id);
 	}
 
 	GameState update()
@@ -43,6 +49,7 @@ namespace menu
 		btn::UpdateInput(play2Button);
 		btn::UpdateInput(creditsButton);
 		btn::UpdateInput(exitButton);
+
 
 		if (playButton.signal)
 		{
@@ -60,6 +67,15 @@ namespace menu
 		if (exitButton.signal) {
 			nextState = GameState::EXIT;
 		}
+
+		btn::Sound(playButton);
+		btn::Sound(play2Button);
+		btn::Sound(creditsButton);
+		btn::Sound(exitButton);
+
+		if (nextState != GameState::MAIN_MENU)
+			snd::Stop(bgm.id);
+
 		return nextState;
 	}
 

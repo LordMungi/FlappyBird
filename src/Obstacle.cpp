@@ -161,7 +161,6 @@ namespace obstcl {
 		if (!obstacle.isActive) {
 			return;
 		}
-
 		drw::Rectangle(obstacle.pos, obstacle.size, obstacle.color);
 	}
 

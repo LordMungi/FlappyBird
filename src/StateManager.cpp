@@ -30,7 +30,6 @@ namespace statemanager
 
 			update();
 			draw();
-			//Sounds
 			changeState();
 		}
 		rend::Close();

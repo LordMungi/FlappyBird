@@ -38,12 +38,16 @@ namespace game
 	bool isActive = true;
 	bool isStarted = false;
 
+	snd::AudioData bgm;
 
 	ctrl::Key pauseKey = ctrl::Key::ESCAPE;
 	ctrl::Key startKey = ctrl::Key::SPACE;
 
 	void init()
 	{
+		bgm.file = "res/audio/bgm1.wav";
+		bgm.id = snd::InitAudioData(bgm);
+
 		vec::Vector2 backgroundSize = { 3.5f, 1 };
 
 		backgroundFar.file = "res/sprites/parallax/back.png";
@@ -91,13 +95,15 @@ namespace game
 
 		exitPauseButton = templates::button;
 		exitPauseButton.pos = { 0.5f, 0.5f };
-		exitPauseButton.textData.text = "Exit to Menu";
+		exitPauseButton.textData.text = "Exit";
 		btn::Init(exitPauseButton);
 
 		nextState = GameState::GAMEPLAY;
 
 		isPaused = false;
 		isStarted = false;
+
+		snd::Play(bgm.id);
 	}
 
 	GameState update()
@@ -206,6 +212,14 @@ namespace game
 			if (players[i].isAlive)
 				isActive = true;
 		}
+		btn::Sound(retryButton);
+		btn::Sound(returnButton);
+		btn::Sound(exitPauseButton);
+		btn::Sound(pauseButton);
+
+
+		if (nextState != GameState::GAMEPLAY)
+			snd::Stop(bgm.id);
 
 		return nextState;
 	}

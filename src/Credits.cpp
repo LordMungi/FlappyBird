@@ -44,6 +44,7 @@ namespace credits
 		if (backButton.signal) {
 			nextState = GameState::MAIN_MENU;
 		}
+		btn::Sound(backButton);
 		return nextState;
 	}
 
