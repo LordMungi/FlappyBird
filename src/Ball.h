@@ -8,6 +8,8 @@ namespace bll {
 
 		int player;
 
+		drw::SpriteData sprite;
+
 		bool isActive = false;
 
 		bool isAlive = false;

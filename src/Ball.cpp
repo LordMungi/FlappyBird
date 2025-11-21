@@ -1,7 +1,6 @@
 #include "BorjaLib.h"
 #include "Ball.h"
 
-//TEMPORALMENTE AQUI
 float gravity = 3.0f;
 
 namespace bll {
@@ -21,6 +20,11 @@ namespace bll {
 			ball.jumpButton = ctrl::ButtonMouse::RMB;
 			break;
 		}
+
+		ball.sprite.file = "res/sprites/bee.png";
+		ball.sprite.size = ball.size;
+		ball.sprite.offset = { 0,0 };
+		ball.sprite.id = drw::InitSpriteData(ball.sprite);
 
 		Reset(ball);
 	}
@@ -82,6 +86,7 @@ namespace bll {
 			return;
 		}
 		drw::Circle(ball.pos, ball.size, ball.color);
+		drw::Sprite(drw::spriteDataList[ball.sprite.id], ball.pos, ball.size, { 0,0 }, ball.color);
 		if (!ball.isAlive) {
 
 			//drw::Circle(ball.crashPoint, ball.size * (1.0f/3.0f), MAGENTA_B);
