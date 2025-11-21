@@ -1,7 +1,7 @@
 #pragma once
 #include "GameState.h"
 
-namespace game
+namespace credits
 {
 	void init();
 	GameState update();

@@ -20,8 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ball.cpp" />
+    <ClCompile Include="src\Config.cpp" />
+    <ClCompile Include="src\Credits.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Obstacle.cpp" />
     <ClCompile Include="src\ObstacleManager.cpp" />
     <ClCompile Include="src\StateManager.cpp" />
@@ -29,8 +32,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Ball.h" />
+    <ClInclude Include="src\Config.h" />
+    <ClInclude Include="src\Credits.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameState.h" />
+    <ClInclude Include="src\Menu.h" />
     <ClInclude Include="src\Obstacle.h" />
     <ClInclude Include="src\ObstacleManager.h" />
     <ClInclude Include="src\StateManager.h" />

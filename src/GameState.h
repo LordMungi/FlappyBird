@@ -3,5 +3,6 @@
 enum class GameState {
 	MAIN_MENU,
 	GAMEPLAY,
-	CREDITS
+	CREDITS,
+	EXIT
 };

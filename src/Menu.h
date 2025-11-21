@@ -1,7 +1,7 @@
 #pragma once
 #include "GameState.h"
 
-namespace game
+namespace menu
 {
 	void init();
 	GameState update();

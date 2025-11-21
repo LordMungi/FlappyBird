@@ -22,6 +22,12 @@
     <Filter Include="Utilities\Templates">
       <UniqueIdentifier>{8eeef0d0-444d-4d46-a43e-448ed6d774a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utilities\Config">
+      <UniqueIdentifier>{13f21b49-dfa2-4786-88d0-055acfa12239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StateManager\Credits">
+      <UniqueIdentifier>{e1b6fafb-3985-430e-9d7a-a192156ce652}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game.cpp">
@@ -45,6 +51,15 @@
     <ClCompile Include="src\Templates.cpp">
       <Filter>Utilities\Templates</Filter>
     </ClCompile>
+    <ClCompile Include="src\Menu.cpp">
+      <Filter>StateManager\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Config.cpp">
+      <Filter>Utilities\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Credits.cpp">
+      <Filter>StateManager\Credits</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.h">
@@ -67,6 +82,15 @@
     </ClInclude>
     <ClInclude Include="src\Templates.h">
       <Filter>Utilities\Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Menu.h">
+      <Filter>StateManager\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Config.h">
+      <Filter>Utilities\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Credits.h">
+      <Filter>StateManager\Credits</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

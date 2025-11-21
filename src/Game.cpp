@@ -1,12 +1,11 @@
 #include "Game.h"
 
-#include <BorjaLib.h>
-
 #include "Ball.h"
 #include "ObstacleManager.h"
 #include "Obstacle.h"
 
 #include "Templates.h"
+#include "Config.h"
 
 namespace game
 {
@@ -31,7 +30,6 @@ namespace game
 	const float nearSpeed = 0.6f;
 	
 	const int maxPlayers = 2;
-	int playersInGame;
 	bll::Ball players[maxPlayers] = {};
 
 	obstcl::FullObstacle obstacles[obstcl::maxObstacles];
@@ -42,7 +40,7 @@ namespace game
 	ctrl::Key pauseKey = ctrl::Key::ESCAPE;
 	ctrl::Key restartKey = ctrl::Key::SPACE;
 
-	void init(int playerAmount)
+	void init()
 	{
 		vec::Vector2 backgroundSize = { 3.5f, 1 };
 
@@ -67,14 +65,12 @@ namespace game
 
 		backgroundNear.id = drw::InitSpriteData(backgroundNear);
 
-		playersInGame = playerAmount;
-
 		for (int i = 0; i < maxPlayers; i++)
 			bll::Init(players[i], i + 1);
 
 		obstcl::Init(obstacles);
 
-		for (int i = 0; i < playersInGame; i++)
+		for (int i = 0; i < config::playersInGame; i++)
 			bll::Reset(players[i]);
 		obstcl::Reset(obstacles);
 
@@ -101,6 +97,8 @@ namespace game
 		btn::Init(exitPauseButton);
 
 		nextState = GameState::GAMEPLAY;
+
+		isPaused = false;
 	}
 
 	GameState update()
@@ -113,7 +111,7 @@ namespace game
 
 			if (retryButton.signal) {
 				isPaused = false;
-				for (int i = 0; i < playersInGame; i++)
+				for (int i = 0; i < config::playersInGame; i++)
 					bll::Reset(players[i]);
 
 				obstcl::Reset(obstacles);
@@ -155,7 +153,7 @@ namespace game
 			backgroundNear.offset.x -= rend::deltaTime * nearSpeed;
 			nearOffset2.x -= rend::deltaTime * nearSpeed;
 
-			for (int i = 0; i < playersInGame; i++)
+			for (int i = 0; i < config::playersInGame; i++)
 			{
 				bll::UpdateInput(players[i]);
 				bll::Update(players[i]);
@@ -169,7 +167,7 @@ namespace game
 		{
 			if (ctrl::IsKeyPressed(restartKey))
 			{
-				for (int i = 0; i < playersInGame; i++)
+				for (int i = 0; i < config::playersInGame; i++)
 					bll::Reset(players[i]);
 				obstcl::Reset(obstacles);
 			}
@@ -177,7 +175,7 @@ namespace game
 
 		for (int o = 0; o < obstcl::maxObstacles; o++)
 		{
-			for (int i = 0; i < playersInGame; i++)
+			for (int i = 0; i < config::playersInGame; i++)
 			{
 				if (obstcl::mngr::Collide(obstacles[o].obstacles, players[i]))
 					bll::Die(players[i]);
@@ -190,7 +188,7 @@ namespace game
 		}
 
 		isActive = false;
-		for (int i = 0; i < playersInGame; i++)
+		for (int i = 0; i < config::playersInGame; i++)
 		{
 			if (players[i].isAlive)
 				isActive = true;
@@ -210,7 +208,7 @@ namespace game
 
 		obstcl::Draw(obstacles);
 
-		for (int i = 0; i < playersInGame; i++)
+		for (int i = 0; i < config::playersInGame; i++)
 			bll::Draw(players[i]);
 
 		btn::Draw(pauseButton);
