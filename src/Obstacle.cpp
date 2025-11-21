@@ -2,6 +2,10 @@
 
 namespace obstcl {
 
+	drw::SpriteData spriteUp;
+	drw::SpriteData spriteDown;
+
+
 	void Init(Obstacle& obstacle)
 	{
 		obstacle = Obstacle();
@@ -20,6 +24,15 @@ namespace obstcl {
 	{
 		fullObstacle = FullObstacle();
 		Reset(fullObstacle);
+
+		spriteUp.file = "res/sprites/obstacle-up.png";
+		spriteDown.file = "res/sprites/obstacle-down.png";
+
+		spriteUp.size.x = fullObstacle.obstacles[1].size.x * 2;
+		spriteUp.id = drw::InitSpriteData(spriteUp);
+
+		spriteDown.size.x = fullObstacle.obstacles[0].size.x * 2;
+		spriteDown.id = drw::InitSpriteData(spriteDown);
 	}
 
 	void Init(FullObstacle fullObstacles[])
@@ -46,6 +59,7 @@ namespace obstcl {
 		{
 			Reset(obstacles[o]);
 		}
+
 	}
 
 	void Reset(FullObstacle& fullObstacle)
@@ -71,7 +85,7 @@ namespace obstcl {
 
 		fullObstacle.obstacles[0].pos.y = (playerSpacePos.y - playerSpaceSize.y / 2.0f) / 2.0f;
 		fullObstacle.obstacles[0].size.y = 2.0f * fullObstacle.obstacles[0].pos.y;
-		fullObstacle.obstacles[0].color = DARKGREEN_B;
+		fullObstacle.obstacles[0].color = WHITE_B;
 
 		fullObstacle.obstacles[1].pos.y = (playerSpacePos.y + playerSpaceSize.y / 2.0f) + (1.0f - (playerSpacePos.y + playerSpaceSize.y / 2.0f))/2.0f;
 		fullObstacle.obstacles[1].size.y = 2.0f * (1.0f - fullObstacle.obstacles[1].pos.y);
@@ -81,6 +95,9 @@ namespace obstcl {
 		fullObstacle.obstacles[2].size.y = playerSpaceSize.y;
 		fullObstacle.obstacles[2].color = BLUE_B;
 		*/
+
+		spriteUp.size.y = fullObstacle.obstacles[1].size.y;
+		spriteDown.size.y = fullObstacle.obstacles[0].size.y;
 	}
 
 	void Reset(FullObstacle fullObstacles[])
@@ -150,10 +167,8 @@ namespace obstcl {
 
 	void Draw(Obstacle obstacles[])
 	{
-		for (int o = 0; o < obstaclesAmount; o++)
-		{
-			Draw(obstacles[o]);
-		}
+		drw::Sprite(drw::spriteDataList[spriteDown.id], obstacles[0].pos, spriteDown.size, { 0,0 }, obstacles[0].color);
+		drw::Sprite(drw::spriteDataList[spriteUp.id], obstacles[1].pos, spriteUp.size, { 0,0 }, obstacles[1].color);
 	}
 
 	void Draw(FullObstacle fullObstacle)

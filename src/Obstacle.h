@@ -17,7 +17,7 @@ namespace obstcl {
 
 		vec::Vector2 size = { 0.05f,0.25f };
 
-		bColor color = DARKGREEN_B;
+		bColor color = WHITE_B;
 	};
 
 	struct FullObstacle {
