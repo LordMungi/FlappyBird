@@ -37,10 +37,10 @@ namespace statemanager
 
 	static void init()
 	{
-		bLib::Init("Flappy Bird");
+		bLib::Init("Flappy Bee");
 
 		versionTextData.fontSize = 0.05f;
-		versionTextData.text = "v0.4";
+		versionTextData.text = "v1.0";
 		versionTextData.color = SEMITRANSPARENT_B;
 
 		templates::init();

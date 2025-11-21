@@ -11,6 +11,7 @@ namespace menu
 	btn::Button play2Button;
 	btn::Button creditsButton;
 	btn::Button exitButton;
+	drw::TextData labelData;
 
 	snd::AudioData bgm;
 
@@ -18,6 +19,8 @@ namespace menu
 	{
 		bgm.file = "res/audio/bgm2.wav";
 		bgm.id = snd::InitAudioData(bgm);
+
+		labelData.text = "Flappy Bee";
 
 		playButton = templates::button;
 		playButton.pos = { 0.5f, 0.6f };
@@ -81,6 +84,8 @@ namespace menu
 
 	void draw()
 	{
+		drw::Text(labelData.text.c_str(), { 0.5f, 0.8f }, { 0.15f }, { 0,0 }, BLACK_B);
+
 		btn::Draw(playButton);
 		btn::Draw(play2Button);
 		btn::Draw(creditsButton);
