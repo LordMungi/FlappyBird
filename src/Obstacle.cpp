@@ -71,7 +71,7 @@ namespace obstcl {
 
 		fullObstacle.obstacles[0].pos.y = (playerSpacePos.y - playerSpaceSize.y / 2.0f) / 2.0f;
 		fullObstacle.obstacles[0].size.y = 2.0f * fullObstacle.obstacles[0].pos.y;
-		fullObstacle.obstacles[0].color = RED_B;
+		fullObstacle.obstacles[0].color = DARKGREEN_B;
 
 		fullObstacle.obstacles[1].pos.y = (playerSpacePos.y + playerSpaceSize.y / 2.0f) + (1.0f - (playerSpacePos.y + playerSpaceSize.y / 2.0f))/2.0f;
 		fullObstacle.obstacles[1].size.y = 2.0f * (1.0f - fullObstacle.obstacles[1].pos.y);

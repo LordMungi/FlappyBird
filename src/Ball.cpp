@@ -22,9 +22,9 @@ namespace bll {
 		}
 
 		ball.sprite.file = "res/sprites/bee.png";
-		ball.sprite.size = ball.size;
-		ball.sprite.offset = { 0,0 };
 		ball.sprite.id = drw::InitSpriteData(ball.sprite);
+
+		ball.score = 0;
 
 		Reset(ball);
 	}
@@ -44,6 +44,7 @@ namespace bll {
 			ball.color = BLUEBERRY_B;
 			break;
 		}
+		ball.score = 0;
 
 		ball.isActive = true;
 		ball.isAlive = true;

@@ -38,6 +38,7 @@ namespace game
 	bool isActive = true;
 	bool isStarted = false;
 
+
 	ctrl::Key pauseKey = ctrl::Key::ESCAPE;
 	ctrl::Key startKey = ctrl::Key::SPACE;
 
@@ -70,10 +71,6 @@ namespace game
 			bll::Init(players[i], i + 1);
 
 		obstcl::Init(obstacles);
-
-		for (int i = 0; i < config::playersInGame; i++)
-			bll::Reset(players[i]);
-		obstcl::Reset(obstacles);
 
 		scoreTextData.fontSize = 0.1f;
 
@@ -164,6 +161,19 @@ namespace game
 			}
 
 			obstcl::Update(obstacles);
+
+			for (int i = 0; i < config::playersInGame; i++)
+			{
+				if (!players[i].hasScored && obstacles[0].pos.x <= players[i].pos.x)
+				{
+					players[i].hasScored = true;
+					players[i].score++;
+				}
+				else if (obstacles[0].pos.x > players[i].pos.x)
+				{
+					players[i].hasScored = false;
+				}
+			}
 		}
 		else
 		{
@@ -216,7 +226,6 @@ namespace game
 
 		btn::Draw(pauseButton);
 
-
 		if (!isActive)
 		{
 			labelData.text = "SPACE to RESTART";
@@ -247,6 +256,15 @@ namespace game
 			}
 
 		}
+
+		labelData.text = std::to_string(players[0].score);
+		drw::Text(labelData.text.c_str(), { 0.1f, 0.9f }, { 0.1f }, { 0,0 }, BLACK_B);
+		if (config::playersInGame > 1)
+		{
+			labelData.text = std::to_string(players[1].score);
+			drw::Text(labelData.text.c_str(), { 0.9f, 0.9f }, { 0.1f }, { 0,0 }, BLACK_B);
+		}
+
 
 		if (isPaused) {
 			drw::Rectangle(vec::Vector4(0.0f, 0.0f, 1.0f, 1.0f), SEMITRANSPARENT_B);

@@ -27,6 +27,8 @@ namespace bll {
 
 		bColor color = MAROON_B;
 
+		int score;
+		bool hasScored;
 
 		ctrl::Key jumpKey;
 		ctrl::ButtonMouse jumpButton;
